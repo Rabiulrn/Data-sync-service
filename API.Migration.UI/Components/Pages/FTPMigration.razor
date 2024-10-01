@@ -1,0 +1,37 @@
+﻿@page "/FTPMigration"
+
+<h1>FTPMigration</h1>
+
+
+<RadzenCard >
+    <RadzenStack Orientation="Orientation.Vertical" AlignItems="AlignItems.Start" Wrap="FlexWrap.Wrap">
+        <RadzenStack Orientation="Orientation.Vertical" Gap="4px">
+            FTP Server URL
+            <RadzenTextBox @bind-Value="ftpServer" class="w-400" Style="width: 250%;" />
+        </RadzenStack>
+        <RadzenStack Orientation="Orientation.Vertical" Gap="4px">
+            FTP Username
+            <RadzenTextBox @bind-Value="ftpUsername" class="w-200" Style="width: 250%;" />
+        </RadzenStack>
+        <RadzenStack Orientation="Orientation.Vertical" Gap="4px">
+            FTP Password
+            <RadzenTextBox @bind-Value="ftpPassword" class="w-200" Style="width: 250%;" />
+        </RadzenStack>
+        <RadzenStack Orientation="Orientation.Vertical" Gap="4px">
+            FTP Directory Path
+            <RadzenTextBox @bind-Value="directoryPath" class="w-200" Style="width: 250%;" />
+        </RadzenStack>
+       
+    </RadzenStack>
+</RadzenCard>
+<br>
+<RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="1rem" Wrap="FlexWrap.Wrap">
+   
+    <RadzenButton Click=@(args => OnClick("FTP")) Text="Start FTP" ButtonStyle="ButtonStyle.Success" />
+   
+</RadzenStack>
+
+
+ 
+
+

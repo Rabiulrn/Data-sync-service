@@ -1,0 +1,78 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace RegnumServices
+{
+	public class ConfigSettings
+	{
+		public string configSetting(string ConnectionStringName)
+		{
+			var configsetting = new ConfigurationBuilder().
+			AddJsonFile("appsettings.json").Build();
+			return configsetting[$@"ConnectionStrings:{ConnectionStringName}"].ToString();
+		
+		}
+		public string[] configSettingArray(string ConnectionStringName)
+		{
+            var configsetting = new ConfigurationBuilder()
+      .AddJsonFile("appsettings.json")
+      .Build();
+
+			// Retrieve the array of connection strings
+			var connectionStrings = configsetting.GetSection($"ConnectionStrings:{ConnectionStringName}")
+												  .Get<string[]>();
+			//string[] connectionStrings = configsetting.GetSection($"ConnectionStrings:{ConnectionStringName}")
+			//                                     .Get<string[]>();
+
+			return connectionStrings;
+
+        }
+        public string Plaza_Table_Setting(string ConnectionStringName)
+        {
+            var configsetting = new ConfigurationBuilder().
+            AddJsonFile("appsettings.json").Build();
+            return configsetting[$@"Plaza_Table:{ConnectionStringName}"].ToString();
+
+        }
+        public string ntmcSetting(string ConnectionStringName)
+		{
+			var configsetting = new ConfigurationBuilder().
+			AddJsonFile("appsettings.json").Build();
+			return configsetting[$@"NTMC:{ConnectionStringName}"].ToString();
+		
+		}
+		public string ntmcSettingPlazaId(string ConnectionStringName)
+		{
+			var configsetting = new ConfigurationBuilder().
+			AddJsonFile("appsettings.json").Build();
+			return configsetting[$@"NTMC:{ConnectionStringName}"].ToString();
+		
+		}
+		
+		public string QuerySetting(string valueName)
+		{
+			var configsetting = new ConfigurationBuilder().
+			AddJsonFile("appsettings.json").Build();
+			return configsetting[$@"DB_Query_Values:{valueName}"].ToString();
+		
+		}
+		public string FTPSettings(string valueName)
+		{
+			var configsetting = new ConfigurationBuilder().
+			AddJsonFile("appsettings.json").Build();
+			return configsetting[$@"FTPServiceSetiings:{valueName}"].ToString();
+		
+		}
+		public string TimersSetting(string timeInterval)
+		{
+			var configsetting = new ConfigurationBuilder().
+			AddJsonFile("appsettings.json").Build();
+			return configsetting[$@"LoggingTimes:{timeInterval}"].ToString();
+		
+		}
+		
+	}
+}

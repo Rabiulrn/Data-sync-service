@@ -1,0 +1,54 @@
+﻿@page "/Api_Migration"
+
+<h1>Api Migration</h1>
+
+
+<RadzenCard >
+    <RadzenStack Orientation="Orientation.Vertical" AlignItems="AlignItems.Start" Wrap="FlexWrap.Wrap">
+        <RadzenStack Orientation="Orientation.Vertical" Gap="4px">
+            Destincation Url
+            <RadzenTextBox @bind-Value="Destincation" class="w-400" Style="width: 250%;" />
+        </RadzenStack>
+        <br>
+        <RadzenStack Orientation="Orientation.Vertical" Gap="4px">
+           Source URL
+            <RadzenTextBox @bind-Value="Source" class="w-200" Style="width: 250%;" />
+        </RadzenStack>
+       
+    </RadzenStack>
+</RadzenCard>
+<br>
+<RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="1rem" Wrap="FlexWrap.Wrap">
+   
+    <RadzenButton Click=@(args => OnClick("MigrateAllTransaction")) Text="Start Migration All Transaction" ButtonStyle="ButtonStyle.Success" />
+   
+</RadzenStack>
+<br>
+<RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="1rem" Wrap="FlexWrap.Wrap">
+   
+    <RadzenButton Click=@(args => OnClick("MigrateETCTransaction")) Text="Start Migration ETC Transaction" ButtonStyle="ButtonStyle.Success" />
+   
+</RadzenStack>
+<br>
+<RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="1rem" Wrap="FlexWrap.Wrap">
+   
+    <RadzenButton Click=@(args => OnClick("MigrateVehicleRegistration")) Text="Start Migration Vehicle Registration" ButtonStyle="ButtonStyle.Success" />
+   
+</RadzenStack>
+<br>
+<RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="1rem" Wrap="FlexWrap.Wrap">
+   
+    <RadzenButton Click=@(args => OnClick("IMAGEMIGRATIONS")) Text="Start Migration IMAGES" ButtonStyle="ButtonStyle.Success" />
+   
+</RadzenStack>
+<br>
+<RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="1rem" Wrap="FlexWrap.Wrap">
+   
+    <RadzenButton Click=@(args => OnClick("UPAYTEST")) Text="Start UPAY TEST" ButtonStyle="ButtonStyle.Success" />
+   
+</RadzenStack>
+
+
+ 
+
+
