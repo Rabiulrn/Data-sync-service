@@ -4,7 +4,7 @@ var builder = Host.CreateApplicationBuilder(args);
 //builder.Services.AddHostedService<RegWorkServ>();
 //builder.Services.AddHostedService<RHDNTMCMigrationService>();
 builder.Services.AddHostedService<RHDMigrationService>();
-////builder.Services.AddHostedService<RHDImageService>();
+//builder.Services.AddHostedService<RHDImageService>();
 //builder.Services.AddHostedService<UpayService>();
 //builder.Services.AddHostedService<FTPFileTransferService>();
 builder.Services.AddSerilog();

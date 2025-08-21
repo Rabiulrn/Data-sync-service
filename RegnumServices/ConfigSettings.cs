@@ -72,6 +72,13 @@ namespace RegnumServices
 			AddJsonFile("appsettings.json").Build();
 			return configsetting[$@"LoggingTimes:{timeInterval}"].ToString();
 		
+		}	
+		public string SMTPSetting(string SmtpSettings)
+		{
+			var configsetting = new ConfigurationBuilder().
+			AddJsonFile("appsettings.json").Build();
+			return configsetting[$@"SmtpSettings:{SmtpSettings}"].ToString();
+		
 		}
 		
 	}
