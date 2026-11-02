@@ -22,12 +22,12 @@ namespace API.Migration.UI.Components.Pages
                 //   await fetcher.Sync(Source, Destincation);
                 //    await Application.Current.MainPage.DisplayAlert("Success", "Migration Completed", "Yes");
                 //}
-                if (text == "MigrateETCTransaction")
-                {
-                    ETCTransactionMigrationMeghna fetcher = new ETCTransactionMigrationMeghna();
-                    await fetcher.Sync(Source, Destincation);
-                    await Application.Current.MainPage.DisplayAlert("Success", "Migration Completed", "Yes");
-                }
+                //if (text == "MigrateETCTransaction")
+                //{
+                //    ETCTransactionMigrationMeghna fetcher = new ETCTransactionMigrationMeghna();
+                //    await fetcher.Sync(Source, Destincation);
+                //    await Application.Current.MainPage.DisplayAlert("Success", "Migration Completed", "Yes");
+                //}
                 //if (text == "MigrateVehicleRegistration")
                 //{
                 //   VehicleRegistrationMigration fetcher = new VehicleRegistrationMigration();
@@ -54,7 +54,7 @@ namespace API.Migration.UI.Components.Pages
                 //} 
                 //if (text == "ServiceTest")
                 //{
-                //    RegnumDataTransSer serv = new RegnumDataTransSer();
+                //    RhdDataTransSer serv = new RhdDataTransSer();
                 //    serv.SyncData();
                 //    await Application.Current.MainPage.DisplayAlert("Success", "Migration Completed", "Yes");
                 //}

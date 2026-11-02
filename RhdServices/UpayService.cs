@@ -3,7 +3,7 @@ using ApiFetcher.Ntmc;
 using Entities.Models;
 using ServiceManager;
 
-namespace RegnumServices
+namespace RhdServices
 {
     public class UpayService : BackgroundService
     {

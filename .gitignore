@@ -1,4 +1,4 @@
-﻿################################################################################
+################################################################################
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
@@ -7,14 +7,14 @@
 /API.Migration.UI/obj
 /ApiFetcher/obj
 /Entities/obj
-/RegnumServices/obj
+/RhdServices/obj
 /API.Migration.UI/bin/Debug/net8.0-windows10.0.19041.0/win10-x64
 /ApiFetcher/bin/Debug/net8.0
 /Entities/bin/Debug/net8.0
 /API.Migration.UI/bin/Debug
 /ApiFetcher/bin/Release/net8.0
 /Entities/bin/Release/net8.0
-/RegnumServices/bin
+/RhdServices/bin
 /API.Migration.UI/bin/Release/net8.0-windows10.0.19041.0/win10-x64
-/RegnumServices/Properties/PublishProfiles/ShitalokhyaImageService.pubxml
-/RegnumServices/Properties/PublishProfiles/ShitalokhyaImageService.pubxml.user
+/RhdServices/Properties/PublishProfiles/ShitalokhyaImageService.pubxml
+/RhdServices/Properties/PublishProfiles/ShitalokhyaImageService.pubxml.user

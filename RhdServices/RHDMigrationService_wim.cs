@@ -3,9 +3,9 @@ using ApiFetcher.Ntmc;
 using Entities.Models;
 using ServiceManager;
 
-namespace RegnumServices
+namespace RhdServices
 {
-    public class RHDMigrationService : BackgroundService
+    public class RHDMigrationService_wim : BackgroundService
     {
         //private readonly ILogger<RegWorkServ> _logger;
 
@@ -31,8 +31,9 @@ namespace RegnumServices
                     int plazaId = Convert.ToInt32(settingss.Plaza_Table_Setting("Plaza_id"));
                     //Console.WriteLine(tableName);
                     //Console.WriteLine(plazaId);
-                    using var allTransactionV4 = new AllTransactionV4();
-                    await allTransactionV4.Sync(
+                   // Paksey paksey = new Paksey();
+                    using var allTransactionV4_wim = new AllTransactionV4_wim();
+                    await allTransactionV4_wim.Sync(
                         RHDSource,
                         RHDDestination,
                         MonthlyDestination,
@@ -68,9 +69,10 @@ namespace RegnumServices
                 string tableName = settingss.Plaza_Table_Setting("Table_Name");
                 string Bridge_Name = settingss.Plaza_Table_Setting("Bridge_Name");
                 int plazaId = Convert.ToInt32(settingss.Plaza_Table_Setting("Plaza_id"));
-
-                AllTransactionSrartV3 allTransactionSrartV3 = new AllTransactionSrartV3();
-                allTransactionSrartV3.Sync(RHDSource, RHDDestination, MonthlyDestination, tableName, plazaId, Bridge_Name);
+               // PakseyStart pakseyStart = new PakseyStart();
+                 AllTransactionSrartV3_wim allTransactionSrartV3_wim = new AllTransactionSrartV3_wim();
+                    allTransactionSrartV3_wim.Sync( RHDSource, RHDDestination, MonthlyDestination,tableName, plazaId,  Bridge_Name  );
+                // pakseyStart.Sync(RHDSource, RHDDestination, MonthlyDestination, tableName, plazaId, Bridge_Name);
             }
             catch (Exception)
             {

@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>dotnet-RegnumServices-cebc3978-451a-44aa-9ae6-17b876d070d6</UserSecretsId>
+    <UserSecretsId>dotnet-RhdServices-cebc3978-451a-44aa-9ae6-17b876d070d6</UserSecretsId>
     <OutputType>Exe</OutputType>
   </PropertyGroup>
 

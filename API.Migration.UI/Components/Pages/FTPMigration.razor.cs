@@ -22,9 +22,9 @@ namespace API.Migration.UI.Components.Pages
                 if (text == "FTP")
                 {
                     
-                   FtpFileTransfer fetcher = new FtpFileTransfer();
-                   await fetcher.SyncTransfer(ftpServer, ftpUsername, ftpPassword, directoryPath);
-                    await Application.Current.MainPage.DisplayAlert("Success", "FTP Migration Completed", "Yes");
+                   //FtpFileTransfer fetcher = new FtpFileTransfer();
+                   //await fetcher.SyncTransfer(ftpServer, ftpUsername, ftpPassword, directoryPath);
+                   // await Application.Current.MainPage.DisplayAlert("Success", "FTP Migration Completed", "Yes");
                 }
              
 

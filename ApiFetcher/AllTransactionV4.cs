@@ -79,24 +79,28 @@ namespace ApiFetcher
 
                                     // Extract the month from the first row's CREATED_AT column
                                     var firstRowCreatedAt = localData.Rows[0]["CREATED_AT"];
-                                    if (firstRowCreatedAt != DBNull.Value && DateTime.TryParse(firstRowCreatedAt.ToString(), out DateTime createdAt))
-                                    {
-                                        int month = createdAt.Month;
+                                if (firstRowCreatedAt != DBNull.Value &&
+                                     DateTime.TryParse(firstRowCreatedAt.ToString(), out DateTime createdAt))
+                                {
+                                    int month = createdAt.Month;   // 1–12
+                                    int year = createdAt.Year;    // 2025 / 2026
 
-                                    //    // Conditional checks for the month
-                                    //    if (month == 1) // January
-                                    //    {
-                                    //        InsertDataToJanuary(localData);
-                                    //        LogWritter($"[SUCCESS] Successfully inserted into January table for {_bridgeName}.");
-                                    //    }
-                                    //    else if (month == 2) // February
-                                    //    {
-                                    //        InsertDataToFebruary(localData);
-                                    //        LogWritter($"[SUCCESS] Successfully inserted into February table for {_bridgeName}.");
-                                    //    }
-                                    //// Add additional conditions for other months if needed
-                                    InsertDataToMonthlyTable(localData, month);
-                                }
+                                    InsertDataToMonthlyTable(localData, month, year);
+                                
+                                //    // Conditional checks for the month
+                                //    if (month == 1) // January
+                                //    {
+                                //        InsertDataToJanuary(localData);
+                                //        LogWritter($"[SUCCESS] Successfully inserted into January table for {_bridgeName}.");
+                                //    }
+                                //    else if (month == 2) // February
+                                //    {
+                                //        InsertDataToFebruary(localData);
+                                //        LogWritter($"[SUCCESS] Successfully inserted into February table for {_bridgeName}.");
+                                //    }
+                                //// Add additional conditions for other months if needed
+
+                            }
                                     else
                                     {
                                         LogWritter("[ERROR] CREATED_AT column contains invalid or null data.");
@@ -307,7 +311,7 @@ namespace ApiFetcher
             }
         }
 
-        private void InsertDataToMonthlyTable(DataTable localData, int month)
+        private void InsertDataToMonthlyTable(DataTable localData, int month,int year)
         {
            
             string monthName = GetMonthName(month);
@@ -317,8 +321,11 @@ namespace ApiFetcher
                 throw new Exception("Invalid month number.");
             }
 
-           
-            string tableName = $"{monthName}25";
+
+
+            // year: 2025 / 2026 → suffix: 25 / 26
+            string yearSuffix = year.ToString().Substring(2);
+            string tableName = $"{monthName}{yearSuffix}";
 
             using (OracleConnection connection = new OracleConnection(_All_plaza_conn))
             {
@@ -477,7 +484,8 @@ PLAZA_TRANS_ID
                                 UPDATED_AT,
                                 CANCELED_AT,
                                 CANCELED_BY,
-PLAZA_TRANS_ID
+PLAZA_TRANS_ID,
+BRIDGE_ID
                             ) VALUES (
                                
                                 :REGISTRATION_NUMBER,
@@ -501,7 +509,8 @@ PLAZA_TRANS_ID
                                 :UPDATED_AT,
                                 :CANCELED_AT,
                                 :CANCELED_BY,
-:PLAZA_TRANS_ID
+:PLAZA_TRANS_ID,
+:BRIDGE_ID
                             )";
                         using (OracleCommand cmd = new OracleCommand(query, connection))
                         {
@@ -528,6 +537,7 @@ PLAZA_TRANS_ID
                             cmd.Parameters.Add(":CANCELED_AT", OracleDbType.TimeStamp).Value = row["CANCELED_AT"] == DBNull.Value ? DBNull.Value : Convert.ToDateTime(row["CANCELED_AT"]);
                             cmd.Parameters.Add(":CANCELED_BY", OracleDbType.Varchar2).Value = row["CANCELED_BY"] == DBNull.Value ? DBNull.Value : row["CANCELED_BY"].ToString();
                             cmd.Parameters.Add(":PLAZA_TRANS_ID", OracleDbType.Int32).Value = row["TRANSACTION_ID"] == DBNull.Value ? DBNull.Value : Convert.ToInt32(row["TRANSACTION_ID"]);
+                            cmd.Parameters.Add(":BRIDGE_ID", OracleDbType.Int32).Value = row["PLAZA_ID"] == DBNull.Value ? DBNull.Value : Convert.ToInt32(row["PLAZA_ID"]);
                             cmd.ExecuteNonQuery();
                         }
                     }

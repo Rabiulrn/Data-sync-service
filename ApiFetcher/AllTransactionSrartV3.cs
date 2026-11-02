@@ -136,7 +136,126 @@ namespace ApiFetcher
             }
         }
 
+        // private DataTable GetDataLocal()
+        // {// adapter.Fill(dt);
+        //     OracleConnection connection = new OracleConnection(_Source);
+        //     try
+        //     {
+        //         var lastSyncTime = GetLastSyncTime();
+        //         var dataTable = new DataTable();
+        //         string query = $@"SELECT
+        //	TRANSACTION_ID,
+        //	REGISTRATION_NUMBER,
+        //	AMOUNT,
+        //	TRANSACTION_NUMBER,
+        //	VEHICLE_CLASS,
+        //	VEHICLE_ID,
+        //	LANE_NO,
+        //	IMAGE_NAME,
+        //	BANK_ID,
+        //	PAYMENT_TYPE_ID,
+        //	USER_ID,
+        //	RECOGNIZE_BY,
+        //	PLAZA_ID,
+        //		RFID_NO,
+        //	CLASS_STATUS,
+        //	TRANSACTIN_ID_BY_BANK,
+        //	IS_ACTIVE,
+        //	STATUS_REMARKS,
+        //	CREATED_AT,
+        //	UPDATED_AT,
+        //	CANCELED_AT,
+        //	CANCELED_BY
 
+        //FROM
+        //	ALL_TRANSACTIONS_TB";
+
+        //         //if (!string.IsNullOrEmpty(lastSyncTime))
+        //         //{
+        //         //    query += " WHERE CREATED_AT > TO_TIMESTAMP(:lastSyncTime, 'DD-MON-YY HH.MI.SS.FF9 AM')";
+        //         //    LogWritter("Get Local and inside if  + " + lastSyncTime);
+        //         //}
+        //         if (!string.IsNullOrEmpty(lastSyncTime))
+        //         {
+        //             string format;
+        //             // Determine if lastSyncTime is in 12-hour or 24-hour format
+        //             if (lastSyncTime.Contains("AM") || lastSyncTime.Contains("PM"))
+        //             {
+        //                 // 12-hour format
+        //                 format = "YYYY-MM-DD HH:MI:SS AM";
+        //             }
+        //             else
+        //             {
+        //                 // Check if fractional seconds are included
+        //                 if (lastSyncTime.Contains("."))
+        //                 {
+        //                     // 24-hour format with fractional seconds
+        //                     format = "YYYY-MM-DD HH24:MI:SS.FF";
+        //                 }
+        //                 else
+        //                 {
+        //                     // 24-hour format without fractional seconds
+        //                     format = "YYYY-MM-DD HH24:MI:SS";
+        //                 }
+        //             }
+
+        //             // Correct the format for TO_TIMESTAMP function in Oracle
+        //             query += $" WHERE CREATED_AT > TO_TIMESTAMP(:lastSyncTime, '{format}')";
+        //             LogWritter("Get Local and inside if + " + lastSyncTime);
+        //         }
+
+
+        //         connection.Open();
+
+        //         using (OracleCommand cmd = new OracleCommand(query, connection))
+        //         {
+        //             if (!string.IsNullOrEmpty(lastSyncTime))
+        //             {
+        //                 cmd.Parameters.Add(new OracleParameter("lastSyncTime", lastSyncTime));
+        //             }
+
+        //             using (OracleDataReader reader = cmd.ExecuteReader())
+        //             {
+        //                 if (reader.HasRows)
+        //                 {
+        //                     // Add columns to DataTable based on reader's schema
+        //                     for (int i = 0; i < reader.FieldCount; i++)
+        //                     {
+        //                         dataTable.Columns.Add(reader.GetName(i), reader.GetFieldType(i));
+        //                     }
+
+        //                     // Read data and add rows to DataTable
+        //                     while (reader.Read())
+        //                     {
+        //                         DataRow dataRow = dataTable.NewRow();
+
+        //                         for (int i = 0; i < reader.FieldCount; i++)
+        //                         {
+        //                             dataRow[i] = reader[i];
+        //                         }
+
+        //                         dataTable.Rows.Add(dataRow);
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //         connection.Close();
+
+        //         LogWritter("Inside Process Data: " + dataTable.Rows.Count);
+        //         return dataTable;
+        //     }
+        //     catch (Exception)
+        //     {
+        //         throw;
+        //     }
+        //     finally
+        //     {
+
+
+        //         connection.Close();
+        //     }
+
+        // }
 
         private DataTable GetDataLocal()
         {
@@ -185,7 +304,7 @@ namespace ApiFetcher
                     if (!string.IsNullOrEmpty(lastSyncTime))
                     {
                         cmd.Parameters.Add(new OracleParameter("lastSyncTime", lastSyncTime));
-                        cmd.Parameters.Add(new OracleParameter("format", OracleDbType.Varchar2)).Value = "DD-MON-YY HH.MI.SS.FF9 AM";
+                        cmd.Parameters.Add(new OracleParameter("format", OracleDbType.Varchar2)).Value = "DD-MON-YY HH.MI.SS.FF9 PM";
                     }
 
                     using (OracleDataReader reader = cmd.ExecuteReader())
@@ -209,7 +328,7 @@ namespace ApiFetcher
                     }
                 }
 
-               // LogWritter($"[INFO] Successfully retrieved {dataTable.Rows.Count} records from source database.");
+                // LogWritter($"[INFO] Successfully retrieved {dataTable.Rows.Count} records from source database.");
             }
             catch (Exception ex)
             {
@@ -229,6 +348,7 @@ namespace ApiFetcher
         {
            
             string monthAbbreviation = GetMonthAbbreviationFromLastSyncTime(lastSyncTime);
+            string yearSuffix = GetYearSuffixFromLastSyncTime(lastSyncTime); // "25" or "26"
 
             if (string.IsNullOrEmpty(monthAbbreviation))
             {
@@ -239,7 +359,7 @@ namespace ApiFetcher
             try
             {
                 
-                string tableName = $"{monthAbbreviation}25"; 
+                string tableName = $"{monthAbbreviation}{yearSuffix}";
                 using (OracleConnection connection = new OracleConnection(_All_plaza_conn))
                 {
                     try
@@ -310,6 +430,19 @@ namespace ApiFetcher
             }
            
         }
+
+
+        private string GetYearSuffixFromLastSyncTime(string lastSyncTime)
+        {
+            if (lastSyncTime.Contains("2025") || lastSyncTime.Contains("25"))
+                return "25";
+
+            if (lastSyncTime.Contains("2026") || lastSyncTime.Contains("26"))
+                return "26";
+
+            return null;
+        }
+
 
         private string GetMonthAbbreviationFromLastSyncTime(string lastSyncTime)
         {
@@ -604,7 +737,8 @@ PLAZA_TRANS_ID
                                 UPDATED_AT,
                                 CANCELED_AT,
                                 CANCELED_BY,
-PLAZA_TRANS_ID
+PLAZA_TRANS_ID,
+BRIDGE_ID
                             ) VALUES (
                                
                                 :REGISTRATION_NUMBER,
@@ -628,7 +762,8 @@ PLAZA_TRANS_ID
                                 :UPDATED_AT,
                                 :CANCELED_AT,
                                 :CANCELED_BY,
-:PLAZA_TRANS_ID
+:PLAZA_TRANS_ID,
+:BRIDGE_ID
                             )";
                         using (OracleCommand cmd = new OracleCommand(query, connection))
                         {
@@ -655,6 +790,7 @@ PLAZA_TRANS_ID
                             cmd.Parameters.Add(":CANCELED_AT", OracleDbType.TimeStamp).Value = row["CANCELED_AT"] == DBNull.Value ? DBNull.Value : Convert.ToDateTime(row["CANCELED_AT"]);
                             cmd.Parameters.Add(":CANCELED_BY", OracleDbType.Varchar2).Value = row["CANCELED_BY"] == DBNull.Value ? DBNull.Value : row["CANCELED_BY"].ToString();
                             cmd.Parameters.Add(":PLAZA_TRANS_ID", OracleDbType.Int32).Value = row["TRANSACTION_ID"] == DBNull.Value ? DBNull.Value : Convert.ToInt32(row["TRANSACTION_ID"]);
+                            cmd.Parameters.Add(":BRIDGE_ID", OracleDbType.Int32).Value = row["PLAZA_ID"] == DBNull.Value ? DBNull.Value : Convert.ToInt32(row["PLAZA_ID"]);
                             cmd.ExecuteNonQuery();
                         }
                     }

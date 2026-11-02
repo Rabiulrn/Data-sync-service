@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+<<<<<<< HEAD
+    <_LastSelectedProfileId>D:\ENGR_Project\CrossPlatformService\RhdServices\Properties\PublishProfiles\DataService.pubxml</_LastSelectedProfileId>
+=======
+    <_LastSelectedProfileId>D:\Project\Services\CrossPlatformService\RhdServices\Properties\PublishProfiles\ImageService.pubxml</_LastSelectedProfileId>
+>>>>>>> d11d6185174de57f0b4dec56a64e6afeb1a1e5b9
+  </PropertyGroup>
+</Project>

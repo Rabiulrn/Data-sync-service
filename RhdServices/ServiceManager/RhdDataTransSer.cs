@@ -1,7 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration;
 
 using Oracle.ManagedDataAccess.Client;
-using RegnumServices;
+using RhdServices;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,18 +20,18 @@ using System.Text.RegularExpressions;
 
 namespace ServiceManager
 {
-    public class RegnumDataTransSer
+    public class RhdDataTransSer
     {
 
         static string Shitolokha = "";
-        static string Regnum = "";
+        static string Rhd = "";
 
 		public void GetConStings()
 		{
 			ConfigSettings configSettingsA = new ConfigSettings();
             Shitolokha = configSettingsA.configSetting("Shitolokha");
 			ConfigSettings configSettingsB = new ConfigSettings();
-            Regnum = configSettingsB.configSetting("Regnum");
+            Rhd = configSettingsB.configSetting("Rhd");
 		}
        
         public void SyncData()
@@ -158,7 +158,7 @@ WHEN NOT MATCHED THEN
         src.VEHICLE_CLASS
     )";
 
-			var connection = new OracleConnection(Regnum);
+			var connection = new OracleConnection(Rhd);
 
 			try
 			{
@@ -191,7 +191,7 @@ WHEN NOT MATCHED THEN
 
 				return;
 			}
-			var connection = new OracleConnection(Regnum);
+			var connection = new OracleConnection(Rhd);
 			try
 			{
 				LogWritter(string.Format("Total Records : {0} for {1} Table", dataTable.Rows.Count, tablname));
@@ -252,7 +252,7 @@ WHEN NOT MATCHED THEN
                 string schemaName = "rhdtest";
                 GetConStings();
                 // Create OracleConnection
-                using (OracleConnection connection = new OracleConnection(Regnum))
+                using (OracleConnection connection = new OracleConnection(Rhd))
                 {
                     try
                     {
